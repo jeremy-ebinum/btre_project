@@ -1,5 +1,5 @@
 from django.core.paginator import Paginator
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from .models import Listing
 
 
@@ -21,7 +21,22 @@ def index(request):
 
 
 def listing(request, listing_id):
-    return render(request, "listings/listing.html")
+    listing = get_object_or_404(Listing, id=listing_id)
+    thumbnail_fields = (
+        "photo_1",
+        "photo_2",
+        "photo_3",
+        "photo_4",
+        "photo_5",
+        "photo_6",
+    )
+    thumbnails = []
+    for field in thumbnail_fields:
+        if listing.__getattribute__(field):
+            thumbnails.append(listing.__getattribute__(field))
+
+    context = {"listing": listing, "thumbnails": thumbnails}
+    return render(request, "listings/listing.html", context)
 
 
 def search(request):
