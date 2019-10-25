@@ -7,7 +7,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>BT Real Estate</title>
+  <title>BT Real Estate {% block title %}{% endblock title %}</title>
   <!-- Font Awesome -->
   <link rel="stylesheet" href="{% static 'css/all.css' %}">
   <!-- Bootstrap -->
@@ -33,10 +33,10 @@
   <!-- Footer -->
   {% include 'partials/_footer.html' %}
 
-  <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
-  <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
-  <script src="{% static 'js/lightbox.min.js' %}"></script>
-  <script src="{% static 'js/main.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/lightbox.min.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
 </body>
 
 </html>
