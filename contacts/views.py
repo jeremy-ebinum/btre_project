@@ -40,16 +40,17 @@ def contact(request):
 
         contact.save()
 
+        # Disabled for production pending proper email service
         # Send mail
-        send_mail(
-            subject="Property Listing Inquiry",
-            message="There has been an inquiry for "
-            + listing
-            + ". Sign into the admin panel for more info",
-            from_email=settings.EMAIL_HOST_USER,
-            recipient_list=[realtor_email],
-            fail_silently=False,
-        )
+        # send_mail(
+        #     subject="Property Listing Inquiry",
+        #     message="There has been an inquiry for "
+        #     + listing
+        #     + ". Sign into the admin panel for more info",
+        #     from_email=settings.EMAIL_HOST_USER,
+        #     recipient_list=[realtor_email],
+        #     fail_silently=False,
+        # )
 
         messages.success(
             request,
