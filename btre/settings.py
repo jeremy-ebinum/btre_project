@@ -29,6 +29,7 @@ env = environ.Env(
     EMAIL_HOST_PASSWORD=str,
     INTERNAL_IPS=(list, ["127.0.0.1"]),
     SECRET_KEY=str,
+    TIME_ZONE=(str, "UTC"),
 )
 
 env.read_env(env_file=os.path.join(BASE_DIR, ".env"))
@@ -117,7 +118,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = "en-us"
 
-TIME_ZONE = "Africa/Lagos"
+TIME_ZONE = env("TIME_ZONE")
 
 USE_I18N = True
 
