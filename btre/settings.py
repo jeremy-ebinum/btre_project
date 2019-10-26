@@ -11,10 +11,27 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+# project defined paths
+DEFAULT_SQLITE_URL = os.path.join(BASE_DIR, "db.sqlite3")
+
+# Initialize environ
+env = environ.Env(
+    ALLOWED_HOSTS=(list, ["127.0.0.1"]),
+    DATABASE_URL=(str, f"sqlite:////{DEFAULT_SQLITE_URL}"),
+    DEBUG=(bool, False),
+    DEFAULT_FROM_EMAIL=str,
+    EMAIL_HOST_USER=str,
+    EMAIL_HOST_PASSWORD=str,
+    INTERNAL_IPS=(list, ["127.0.0.1"]),
+    SECRET_KEY=str,
+)
+
+env.read_env(env_file=os.path.join(BASE_DIR, ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.2/howto/deployment/checklist/
@@ -35,6 +52,7 @@ INSTALLED_APPS = [
     "listings.apps.ListingsConfig",
     "realtors.apps.RealtorsConfig",
     "accounts.apps.AccountsConfig",
+    "contacts.apps.ContactsConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -130,9 +148,20 @@ MEDIA_URL = "/media/"
 
 # Messages
 from django.contrib.messages import constants as messages
+
 MESSAGE_TAGS = {
-    messages.ERROR: 'danger',
-    messages.INFO: 'info',
-    messages.WARNING: 'warning',
-    messages.SUCCESS: 'success',
+    messages.ERROR: "danger",
+    messages.INFO: "info",
+    messages.WARNING: "warning",
+    messages.SUCCESS: "success",
 }
+
+# Email Config
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_PORT = 587
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+DEFAULT_FROM_EMAIL = env("DEFAULT_FROM_EMAIL")
